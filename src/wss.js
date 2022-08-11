@@ -15,12 +15,18 @@ wss.on('connection', async (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
 
-        var blob = JSON.stringify({foo: "bar"})
+        const blob = JSON.stringify({foo: "bar"})
         database.query(`insert into games (\`blob\`) values ('${blob}')`)
     });
 
     socket.on('message', (msg) => {
-        console.log('Received a message: ' + msg);
+        console.log('Received a message:' + msg);
+        const message = (JSON.parse(msg.toString()));
+
+        console.log(message);
+        console.log(message.type);
+        console.log(message.payload);
+
         socket.send('Some response!');
     });
 });
