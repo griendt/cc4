@@ -46,7 +46,7 @@ export default {
         },
       }).then(() => {
         this.$emit('reload-games');
-      }); // todo: add .then, update game list etc.
+      });
     },
   },
 };
