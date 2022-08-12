@@ -1,15 +1,11 @@
-const database = require('./database');
+const database = require('../database');
 
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({
+const ws = new WebSocket.Server({
     port: 3000,
 })
 
-wss.on('connection', async (socket) => {
-
-    const [results] = await database.query('select * from games');
-
-    console.log(results);
+ws.on('connection', async (socket) => {
     console.log('a user connected');
 
     socket.on('disconnect', () => {

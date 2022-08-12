@@ -3,6 +3,7 @@ To spin up the development server, copy `.env.example` to `.env`, fill in all th
 ```shell
 docker-compose up -d        # spin up the containers
 node src/migration.js up    # run migrations
-node src/wss.js             # open the websocket server (ws) at port 3000
-npm run serve               # start the Vue web server (http) at port 8080
+node src/server/ws.js       # open the websocket server (ws) at port 3000
+node src/server/http.js     # open up the http server at port 8080
+npm run build               # compile the Vue JS
 ```

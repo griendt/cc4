@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <button v-on:click="sendMessage('message', 'hello')">Send Message</button>
+
+    <GameListEntry v-for="game in this.games" :key="game.id" :game="game"></GameListEntry>
+    <button v-on:click="sendMessage('message', 'hello')">Send Some Real Message</button>
   </div>
 </template>
 
 <script>
+import GameListEntry from "@/components/GameListEntry";
 export default {
   name: 'App',
+  components: {GameListEntry},
   data: function() {
     return {
+      games: [],
       connection: null
     }
   },
+
   methods: {
     sendMessage: function(type, payload) {
       const message = JSON.stringify({"type": type, "payload": payload})
@@ -20,12 +26,20 @@ export default {
       console.log('Message sent: ' + message);
     },
   },
+
   created: function() {
     this.connection = new WebSocket("ws://localhost:3000");
 
     this.connection.onmessage = function(event) {
       console.log('We received a message! It contains: ' + event.data);
     };
+
+    this.games = fetch('http://localhost:8080/api/games').then(async (response) => {
+      this.games = await response.json();
+    }).catch((error) => {
+      console.error('Could not fetch games! Error was: ');
+      console.error(error);
+    });
   },
 };
 </script>
