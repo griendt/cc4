@@ -1,19 +1,19 @@
 <template>
-  <div class="bg-white shadow-md rounded my-6">
-    <table v-if="!this.joined_game" class="table-auto w-full">
+  <div class="bg-white mx-6 my-6">
+    <table v-if="!this.joined_game" class="table-auto w-full shadow-md">
       <thead>
-      <tr class="bg-gray-200 text-gray-600 leading-normal">
-        <th class="py-3 px-6 text-left">ID</th>
-        <th class="py-3 px-6 text-left">Name</th>
-        <th class="py-3 px-6 text-left">#Players</th>
-        <th class="py-3 px-6 text-left">Actions</th>
+      <tr class="bg-gray-200 text-gray-600 leading-normal text-center">
+        <th class="py-3 px-6 text-left text-center">ID</th>
+        <th class="py-3 px-6 text-left text-center">Name</th>
+        <th class="py-3 px-6 text-left text-center">#Players</th>
+        <th class="py-3 px-6 text-left text-center">Actions</th>
       </tr>
       </thead>
       <tbody class="text-gray-600 font-light">
-      <GameListEntry @joined="joinGame" v-for="game in this.games" :key="game.id" :game="game"/>
+      <GameListEntry @join="joinGame" v-for="game in this.games" :key="game.id" :game="game"/>
       </tbody>
     </table>
-    <PrimaryButton v-else :content="'Leave room'" v-on:click="this.joined_game = null"></PrimaryButton>
+    <PrimaryButton v-else :content="'Leave room'" @click="leaveGame"></PrimaryButton>
   </div>
 </template>
 
@@ -33,20 +33,25 @@ export default {
   },
 
   methods: {
-    sendMessage: (type, payload) => {
+    sendMessage(type, payload) {
       const message = JSON.stringify({"type": type, "payload": payload});
-
       this.connection.send(message);
       console.log('Message sent: ' + message);
     },
 
-    joinGame: (game) => {
+    joinGame(game) {
       console.log("The game has been joined!");
-      console.log(game);
+      this.joined_game = game;
+    },
+
+    leaveGame() {
+      console.log("Left the game");
+      console.log(this);
+      this.joined_game = null;
     },
   },
 
-  created: function () {
+  created() {
     this.connection = new WebSocket("ws://localhost:3000");
 
     this.connection.onmessage = function (event) {
