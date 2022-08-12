@@ -1,29 +1,17 @@
 <template>
   <div class="bg-white mx-6 my-6">
-    <table v-if="!this.joined_game" class="table-auto w-full shadow-md">
-      <thead>
-      <tr class="bg-gray-200 text-gray-600 leading-normal text-center">
-        <th class="py-3 px-6 text-left text-center">ID</th>
-        <th class="py-3 px-6 text-left text-center">Name</th>
-        <th class="py-3 px-6 text-left text-center">#Players</th>
-        <th class="py-3 px-6 text-left text-center">Actions</th>
-      </tr>
-      </thead>
-      <tbody class="text-gray-600 font-light">
-      <GameListEntry @join="joinGame" v-for="game in this.games" :key="game.id" :game="game"/>
-      </tbody>
-    </table>
+    <GameList v-if="!joined_game" :games="games" @join="joinGame"></GameList>
     <PrimaryButton v-else :content="'Leave room'" @click="leaveGame"></PrimaryButton>
   </div>
 </template>
 
 <script>
-import GameListEntry from "@/components/GameListEntry";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import GameList from "@/components/GameList";
 
 export default {
   name: 'App',
-  components: {GameListEntry, PrimaryButton},
+  components: {GameList, PrimaryButton},
   data: function () {
     return {
       games: [],
