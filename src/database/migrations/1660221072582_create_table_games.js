@@ -9,7 +9,7 @@ module.exports = {
             description varchar(255) null,
             started_at timestamp null,
             ended_at timestamp null,
-            \`blob\` json null
+            state json null
         )
     `,
     "down": `drop table if exists games`,
