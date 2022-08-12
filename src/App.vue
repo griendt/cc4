@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-
-    <GameListEntry v-for="game in this.games" :key="game.id" :game="game"></GameListEntry>
-    <button class="inline-block px-6 py-4 bg-blue-600 text-white font-medium rounded shadow-md hover:bg-blue-700 hover:shadow-lg" v-on:click="sendMessage('message', 'hello')">Send Some Real Message</button>
+    <div class="bg-white shadow-md rounded my-6">
+      <table class="table-auto w-full">
+        <thead>
+        <tr class="bg-gray-200 text-gray-600 leading-normal">
+          <th class="py-3 px-6 text-left">ID</th>
+          <th class="py-3 px-6 text-left">Name</th>
+          <th class="py-3 px-6 text-left">#Players</th>
+          <th class="py-3 px-6 text-left">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="text-gray-600 font-light">
+        <GameListEntry v-for="game in this.games" :key="game.id" :game="game"/>
+        </tbody>
+      </table>
+      <!--    <PrimaryButton :content="'Send!'" v-on:click="sendMessage('message', 'hello')"></PrimaryButton>-->
+    </div>
   </div>
 </template>
 
 <script>
 import GameListEntry from "@/components/GameListEntry";
+// import PrimaryButton from "@/components/buttons/PrimaryButton";
+
 export default {
   name: 'App',
   components: {GameListEntry},
-  data: function() {
+  data: function () {
     return {
       games: [],
       connection: null,
@@ -19,7 +34,7 @@ export default {
   },
 
   methods: {
-    sendMessage: function(type, payload) {
+    sendMessage: function (type, payload) {
       const message = JSON.stringify({"type": type, "payload": payload});
 
       this.connection.send(message);
@@ -27,10 +42,10 @@ export default {
     },
   },
 
-  created: function() {
+  created: function () {
     this.connection = new WebSocket("ws://localhost:3000");
 
-    this.connection.onmessage = function(event) {
+    this.connection.onmessage = function (event) {
       console.log('We received a message! It contains: ' + event.data);
     };
 
