@@ -1,5 +1,5 @@
 <template>
-  <table v-if="!this.joined_game" class="table-auto w-full shadow-md">
+  <table class="table-auto w-full shadow-md">
     <thead>
     <tr class="bg-gray-200 text-gray-600 leading-normal text-center">
       <th class="py-3 px-6 text-left text-center">ID</th>
