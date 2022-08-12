@@ -1,44 +1,48 @@
 <template>
-  <div id="app">
-    <div class="bg-white shadow-md rounded my-6">
-      <table class="table-auto w-full">
-        <thead>
-        <tr class="bg-gray-200 text-gray-600 leading-normal">
-          <th class="py-3 px-6 text-left">ID</th>
-          <th class="py-3 px-6 text-left">Name</th>
-          <th class="py-3 px-6 text-left">#Players</th>
-          <th class="py-3 px-6 text-left">Actions</th>
-        </tr>
-        </thead>
-        <tbody class="text-gray-600 font-light">
-        <GameListEntry v-for="game in this.games" :key="game.id" :game="game"/>
-        </tbody>
-      </table>
-      <!--    <PrimaryButton :content="'Send!'" v-on:click="sendMessage('message', 'hello')"></PrimaryButton>-->
-    </div>
+  <div class="bg-white shadow-md rounded my-6">
+    <table v-if="!this.joined_game" class="table-auto w-full">
+      <thead>
+      <tr class="bg-gray-200 text-gray-600 leading-normal">
+        <th class="py-3 px-6 text-left">ID</th>
+        <th class="py-3 px-6 text-left">Name</th>
+        <th class="py-3 px-6 text-left">#Players</th>
+        <th class="py-3 px-6 text-left">Actions</th>
+      </tr>
+      </thead>
+      <tbody class="text-gray-600 font-light">
+      <GameListEntry @joined="joinGame" v-for="game in this.games" :key="game.id" :game="game"/>
+      </tbody>
+    </table>
+    <PrimaryButton v-else :content="'Leave room'" v-on:click="this.joined_game = null"></PrimaryButton>
   </div>
 </template>
 
 <script>
 import GameListEntry from "@/components/GameListEntry";
-// import PrimaryButton from "@/components/buttons/PrimaryButton";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
 export default {
   name: 'App',
-  components: {GameListEntry},
+  components: {GameListEntry, PrimaryButton},
   data: function () {
     return {
       games: [],
+      joined_game: null,
       connection: null,
     }
   },
 
   methods: {
-    sendMessage: function (type, payload) {
+    sendMessage: (type, payload) => {
       const message = JSON.stringify({"type": type, "payload": payload});
 
       this.connection.send(message);
       console.log('Message sent: ' + message);
+    },
+
+    joinGame: (game) => {
+      console.log("The game has been joined!");
+      console.log(game);
     },
   },
 

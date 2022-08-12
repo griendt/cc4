@@ -3,7 +3,7 @@
     <td class="px-6 py-1">{{ game.id }}</td>
     <td class="px-6 py-1">{{ game.display_name }}</td>
     <td class="px-6 py-1">3</td> <!-- amount of players -->
-    <td class="px-6 py-1"><PrimaryButton :content="'Join'"></PrimaryButton></td>
+    <td class="px-6 py-1"><PrimaryButton @click="this.$root.joined_game=this.game" :content="'Join'"></PrimaryButton></td>
   </tr>
 </template>
 
