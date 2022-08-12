@@ -1,9 +1,13 @@
 ## Getting started
 To spin up the development server, copy `.env.example` to `.env`, fill in all the fields, then run the following:
 ```shell
-docker-compose up -d        # spin up the containers
-node src/migration.js up    # run migrations
-node src/server/ws.js       # open the websocket server (ws) at port 3000
-node src/server/http.js     # open up the http server at port 8080
-npm run build               # compile the Vue JS
+# spin up the containers
+docker-compose up -d
+# run migrations
+node src/migration.js up
+# open the websocket server (ws) and http server (ports 3000 and 8080 respectively)
+node src/server/ws.js
+node src/server/http.js
+# compile the Vue JS and Tailwind CSS
+npm run build && npx tailwindcss -i ./src/index.css -o ./public/output.css
 ```
