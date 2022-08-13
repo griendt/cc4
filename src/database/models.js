@@ -1,5 +1,5 @@
 const {DataTypes, Model} = require('sequelize');
-const sequelize = require("../../database")
+const sequelize = require("../database")
 
 class Game extends Model {
 }
@@ -23,10 +23,5 @@ Game.init({
     sequelize,
     modelName: 'Game',
 });
-//
-// (async function ()
-// {
-//     await Game.sync();
-// }());
 
-module.exports = Game;
+module.exports = {Game};

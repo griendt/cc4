@@ -1,5 +1,5 @@
-const Game = require('./models/game');
+const models = require('./models');
 
 (async function () {
-    await Game.sync();
+    await models.Game.sync();
 })();

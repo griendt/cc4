@@ -1,5 +1,5 @@
 const express = require("express");
-const Game = require("../database/models/game");
+const models = require('../database/models');
 
 const app = express()
 
@@ -12,14 +12,14 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/games', async (request, response) => {
-    response.send(await Game.findAll());
+    response.send(await models.Game.findAll());
 });
 
 app.post('/api/games', async (request, response) => {
     console.log('The request contains the following');
     console.log(request.body);
 
-    const game = new Game({display_name: request.body.display_name});
+    const game = new models.Game({display_name: request.body.display_name});
     await game.save();
     console.log('Created a game with name: ' + request.body.display_name);
     response.send();
