@@ -3,8 +3,8 @@ To spin up the development server, copy `.env.example` to `.env`, fill in all th
 ```shell
 # spin up the containers
 docker-compose up -d
-# run migrations
-node src/migration.js up
+# set up or sync database schema
+node src/database/sync.js
 # open the websocket server (ws) and http server (ports 3000 and 8080 respectively)
 node src/server/ws.js
 node src/server/http.js

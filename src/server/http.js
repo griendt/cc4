@@ -1,5 +1,6 @@
 const express = require("express");
 const database = require("../database");
+const Game = require("../database/models/game");
 
 const app = express()
 
@@ -20,11 +21,9 @@ app.get('/api/games', async (request, response) => {
 app.post('/api/games', async (request, response) => {
     console.log('The request contains the following');
     console.log(request.body);
-    await database.query(
-        'insert into games (created_at, updated_at, display_name) values (now(), now(), $name)',
-        {
-            bind: { name: request.body.display_name}
-        });
+
+    const game = new Game({display_name: request.body.display_name});
+    await game.save();
     console.log('Created a game with name: ' + request.body.display_name);
     response.send();
 });
