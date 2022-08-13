@@ -1,5 +1,4 @@
 const express = require("express");
-const database = require("../database");
 const Game = require("../database/models/game");
 
 const app = express()
@@ -13,9 +12,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/games', async (request, response) => {
-    const [results] = await database.query('select * from games');
-    console.log(results);
-    response.send(results);
+    response.send(await Game.findAll());
 });
 
 app.post('/api/games', async (request, response) => {
