@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody class="text-gray-600 font-light">
-    <GameListEntry @join="join(game)" v-for="game in this.games" :key="game.id" :game="game"/>
+    <GameListEntry @join="join(game)" v-for="game in this.games" :key="game.id" :game="game" :username="username"/>
     </tbody>
   </table>
 </template>
@@ -20,7 +20,7 @@ import GameListEntry from "@/components/GameListEntry";
 export default {
   name: "GameList",
   components: {GameListEntry},
-  props: ['games'],
+  props: ['games', 'username'],
   methods: {
     join(game) {
       this.$emit('join', game);

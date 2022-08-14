@@ -1,34 +1,19 @@
 <template>
   <div class="w-full text-2xl text-center font-bold mt-12">Create room</div>
   <div class="w-full grid grid-cols-2 py-4">
-    <div class="px-3">
-      <input
-          class="shadow border rounded w-full px-3 py-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="display_name"
-          type="text"
-          placeholder="Room name"
-          v-model="room_name"
-      >
-    </div>
-    <div class="px-3">
-      <input
-          class="shadow border rounded w-full px-3 py-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="display_name"
-          type="text"
-          placeholder="Description"
-          v-model="room_description"
-      >
-    </div>
+      <InputField class="px-3" id="display_name" placeholder="Room name" v-model="room_name" />
+      <InputField class="px-3" id="description" placeholder="Description" v-model="room_description" />
   </div>
   <PrimaryButton @click="createRoom" :content="'Create'"/>
 </template>
 
 <script>
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import InputField from "@/components/InputField";
 
 export default {
   name: "GameCreationForm",
-  components: {PrimaryButton},
+  components: {InputField, PrimaryButton},
   emits: ['reload-games'],
   data: () => {
     return {
