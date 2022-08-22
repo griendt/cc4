@@ -1,13 +1,29 @@
 <template>
-  <nav class="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 shadow-lg navbar navbar-light">
+  <nav
+      class="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 shadow-lg navbar navbar-light">
     <div class="w-full justify-between">
       <div class="collapse navbar-collapse items-center">
         <div class="navbar-nav flex items-center">
-          <div class="nav-item px-6 hover:text-indigo-700 hover:underline">
-            Home <span v-if="games" class="inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 text-white rounded mx-2">{{ games.length }}</span>
+          <div class="nav-item px-6">
+            Home
+            <span v-if="games"
+                  class="inline-block py-1 px-2 leading-none text-center whitespace-nowrap align-baseline font-bold bg-yellow-600 text-white rounded mx-2"
+                  data-bs-toggle="tooltip"
+                  title="Amount of open rooms"
+            >
+                {{ games.length }}
+              </span>
           </div>
-          <div class="nav-item px-6 hover:text-indigo-700 hover:underline">
-            <InputField v-model="username" id="username" description="Username" placeholder="Jin Doe" />
+          <div class="flex nav-item px-6">
+            <span class="shadow inline-flex items-center px-3 bg-gray-200 text-gray-900 text-sm rounded-l-md rounded-r-none">Username</span>
+            <InputField
+                v-model="username"
+                id="username"
+                description="Username"
+                placeholder="Jin Doe"
+                :disabled="joined_game_id"
+                class="rounded-r-md rounded-l-none"
+            />
           </div>
         </div>
       </div>
